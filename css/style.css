@@ -23,6 +23,7 @@ body {
   font-size: 16px;
   line-height: 1.7; /* 1.7 times bigger than the predefined height */
   color: #777;
+  padding: 30px;
 }
 
 .header {
@@ -35,4 +36,12 @@ body {
     url(../img/hero.jpg); /* background-image accepts more than one element, being the order in which they are in, the order they will be diplayed the first at the top and so on */
   background-size: cover; /* makes the img fit inside the box element containing it */
   background-position: top; /* makes sure that no matter the viewport size, the image stays at the top of the container - cropping the bottom if needed */
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 75vh,
+    /* by it being viewport height, the image/element form changes dinamically */
+      0 100%
+  ); /* coordinates of the corners of the element in the way it will stay visible - start left top corner and move clockwise */
 }
