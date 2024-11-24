@@ -36,6 +36,7 @@ body {
     url(../img/hero.jpg); /* background-image accepts more than one element, being the order in which they are in, the order they will be diplayed the first at the top and so on */
   background-size: cover; /* makes the img fit inside the box element containing it */
   background-position: top; /* makes sure that no matter the viewport size, the image stays at the top of the container - cropping the bottom if needed */
+  position: relative; /* reference to where the logo-box positioning starts counting v */
 
   clip-path: polygon(
     0 0,
@@ -44,4 +45,45 @@ body {
     /* by it being viewport height, the image/element form changes dinamically */
       0 100%
   ); /* coordinates of the corners of the element in the way it will stay visible - start left top corner and move clockwise */
+}
+
+.logo-box {
+  position: absolute; /* reference from the parent element that has its position set to relative */
+  top: 40px;
+  left: 40px;
+}
+
+.logo {
+  height: 35px;
+}
+
+.header-text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%; /* these positions are in relation to the parent element whereas the transform are in relation to the element itself */
+  transform: translate(
+    /* shifting 50% of the width */ -50%,
+    /* shifting 50% of the height */ -50%
+  ); /* transform - changes the points where the positioning refers to, not the corner top and left anymore in this case, it's in the middle of the element itself */
+}
+
+.primary-heading {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* span element is by default an inline element */
+
+.primary-heading-main {
+  display: block; /* block elements occupy the entire width they have available & create line breaks before and after them */
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+}
+
+.primary-heading-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 17.4px;
 }
