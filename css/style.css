@@ -27,6 +27,12 @@ body {
 
 .header {
   height: 95vh; /* 95% of the viewport height */
-  background-image: url(../img/hero.jpg);
+  background-image: linear-gradient(
+      to right bottom,
+      rgb(126, 213, 111, 0.8),
+      rgb(40, 180, 133, 0.8)
+    ),
+    url(../img/hero.jpg); /* background-image accepts more than one element, being the order in which they are in, the order they will be diplayed the first at the top and so on */
   background-size: cover; /* makes the img fit inside the box element containing it */
+  background-position: top; /* makes sure that no matter the viewport size, the image stays at the top of the container - cropping the bottom if needed */
 }
