@@ -65,11 +65,18 @@ body {
     /* shifting 50% of the width */ -50%,
     /* shifting 50% of the height */ -50%
   ); /* transform - changes the points where the positioning refers to, not the corner top and left anymore in this case, it's in the middle of the element itself */
+
+  text-align: center;
 }
 
 .primary-heading {
   color: #fff;
   text-transform: uppercase;
+
+  /* the back part of the element that is going through the animation */
+  backface-visibility: hidden; /* helps geting the shaky ending hidden from the animation */
+
+  margin-bottom: 60px;
 }
 
 /* span element is by default an inline element */
@@ -79,6 +86,15 @@ body {
   font-size: 60px;
   font-weight: 400;
   letter-spacing: 35px;
+
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+
+  /* 
+  animation-delay: 3s;
+  animation-iteration-count: 3;
+  */
 }
 
 .primary-heading-sub {
@@ -86,4 +102,117 @@ body {
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 17.4px;
+
+  animation: moveInRight 1s ease-out;
+}
+
+@keyframes moveInLeft {
+  /* initial state */
+  0% {
+    opacity: 0;
+    /* translateX because the change is from left to right so it occurs on the X-axis */
+    transform: translateX(-100px);
+  }
+  /* could add other percentages in the middle for other parts of the animation */
+  80% {
+    /* going a bit extra to the right before moving into the normal position */
+    transform: translateX(10px);
+  }
+  /* end state */
+  100% {
+    opacity: 1;
+    /* translate it back to how it's normally shown so 0 - otherwise it would move more */
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  80% {
+    transform: translateX(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* :link is a pseudo-class - link is a state for an element when it is an anchor so it functions as a link */
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  transition: all 0.2s; /* this "allows" for transitions needs to be in the initial state  */
+  position: relative; /* to serve as the reference for the absolute positioning of the ::after element */
+}
+
+.btn:hover {
+  transform: translateY(-3px); /* goes up when hovering */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* active state is when we click */
+.btn:active {
+  transform: translateY(
+    -1px
+  ); /* -1px in relation to the initial state of the btn + it goes down when clickinh */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #777;
+}
+
+.btn::after {
+  /* needs to specify the content and display otherwise the element won't show on the page */
+  content: ""; /* even when it's just empty */
+  display: inline-block; /* because we want it to be the same as the btn */
+  /* height and width in relation to the size of the btn */
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  /* to send the element ::after behind the actual btn */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* so it's behind the btn */
+
+  transition: all 0.4s;
+}
+
+.btn-white::after {
+  background-color: #fff;
+}
+
+/* when hovering the btn - what properties do we want for the ::after element */
+.btn:hover::after {
+  /* scale increases the element */
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0; /* fade it out */
+}
+
+.btn-animated {
+  animation: moveInBottom 0.5s ease-out 0.75s;
+  animation-fill-mode: backwards; /* applies the styles of the animation at 0% to the element before the animation starts so in this case opacity 0 */
 }
