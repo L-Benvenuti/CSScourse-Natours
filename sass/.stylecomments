@@ -1,0 +1,229 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+/* cross browser reset - makes all browsers render the page the same way */
+*,
+*::after,
+*::before {
+  /* CROSS BROWSER RESET */
+  /* makes all browsers render the page the same way */
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; /* all elements inherit box-sizing from body which is border-box */
+  /* CROSS BROWSER RESET */
+}
+
+html {
+  font-size: 62.5%;
+  /* this way we are not overriding the default px size and not allowing users to manually change that number */
+  /* default is 16px so 62.5% is 10px which allows us for better, easier, and more precise use of rem as a unit */
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7; /* 1.7 times bigger than the predefined height */
+  color: #777;
+  padding: 3rem;
+
+  box-sizing: border-box; /* changes the box model so that the borders and the paddings are no longer added to the total width or the total height that we specify for a box */
+}
+
+.header {
+  height: 95vh; /* 95% of the viewport height */
+  background-image: linear-gradient(
+      to right bottom,
+      rgb(126, 213, 111, 0.8),
+      rgb(40, 180, 133, 0.8)
+    ),
+    url(../img/hero.jpg); /* background-image accepts more than one element, being the order in which they are in, the order they will be diplayed the first at the top and so on */
+  background-size: cover; /* makes the img fit inside the box element containing it */
+  background-position: top; /* makes sure that no matter the viewport size, the image stays at the top of the container - cropping the bottom if needed */
+  position: relative; /* reference to where the logo-box positioning starts counting v */
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 75vh,
+    /* by it being viewport height, the image/element form changes dinamically */
+      0 100%
+  ); /* coordinates of the corners of the element in the way it will stay visible - start left top corner and move clockwise */
+}
+
+.header__logo-box {
+  position: absolute; /* reference from the parent element that has its position set to relative */
+  top: 4rem;
+  left: 4rem;
+}
+
+.header__logo {
+  height: 3.5rem;
+}
+
+.header__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%; /* these positions are in relation to the parent element whereas the transform are in relation to the element itself */
+  transform: translate(
+    /* shifting 50% of the width */ -50%,
+    /* shifting 50% of the height */ -50%
+  ); /* transform - changes the points where the positioning refers to, not the corner top and left anymore in this case, it's in the middle of the element itself */
+
+  text-align: center;
+}
+
+.primary-heading {
+  color: #fff;
+  text-transform: uppercase;
+
+  /* the back part of the element that is going through the animation */
+  backface-visibility: hidden; /* helps geting the shaky ending hidden from the animation */
+
+  margin-bottom: 6rem;
+}
+
+/* span element is by default an inline element */
+
+.primary-heading--main {
+  display: block; /* block elements occupy the entire width they have available & create line breaks before and after them */
+  font-size: 6rem;
+  font-weight: 400;
+  letter-spacing: 3.5rem;
+
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+
+  /* 
+  animation-delay: 3s;
+  animation-iteration-count: 3;
+  */
+}
+
+.primary-heading--sub {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1.75rem;
+
+  animation: moveInRight 1s ease-out;
+}
+
+@keyframes moveInLeft {
+  /* initial state */
+  0% {
+    opacity: 0;
+    /* translateX because the change is from left to right so it occurs on the X-axis */
+    transform: translateX(-10rem);
+  }
+  /* could add other percentages in the middle for other parts of the animation */
+  80% {
+    /* going a bit extra to the right before moving into the normal position */
+    transform: translateX(1rem);
+  }
+  /* end state */
+  100% {
+    opacity: 1;
+    /* translate it back to how it's normally shown so 0 - otherwise it would move more */
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* :link is a pseudo-class - link is a state for an element when it is an anchor so it functions as a link */
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 10rem;
+  transition: all 0.2s; /* this "allows" for transitions needs to be in the initial state  */
+  position: relative; /* to serve as the reference for the absolute positioning of the ::after element */
+  font-size: 1.6rem;
+}
+
+.btn:hover {
+  transform: translateY(-3px); /* goes up when hovering */
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+/* active state is when we click */
+.btn:active {
+  transform: translateY(
+    -1px
+  ); /* -1px in relation to the initial state of the btn + it goes down when clickinh */
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.btn--white {
+  background-color: #fff;
+  color: #777;
+}
+
+.btn::after {
+  /* needs to specify the content and display otherwise the element won't show on the page */
+  content: ""; /* even when it's just empty */
+  display: inline-block; /* because we want it to be the same as the btn */
+  /* height and width in relation to the size of the btn */
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  /* to send the element ::after behind the actual btn */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* so it's behind the btn */
+
+  transition: all 0.4s;
+}
+
+.btn--white::after {
+  background-color: #fff;
+}
+
+/* when hovering the btn - what properties do we want for the ::after element */
+.btn:hover::after {
+  /* scale increases the element */
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0; /* fade it out */
+}
+
+.btn--animated {
+  animation: moveInBottom 0.5s ease-out 0.75s;
+  animation-fill-mode: backwards; /* applies the styles of the animation at 0% to the element before the animation starts so in this case opacity 0 */
+}
