@@ -1,0 +1,13 @@
+.u-center-text {
+	text-align: center; //works because the element inside this div is an inline-block element which is treated like text
+}
+
+.u-margin-bottom-big {
+	margin-bottom: 8rem;
+}
+.u-margin-bottom-medium {
+	margin-bottom: 4rem;
+}
+.u-margin-bottom-small {
+	margin-bottom: 1.5rem;
+}
