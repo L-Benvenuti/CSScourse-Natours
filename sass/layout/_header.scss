@@ -1,5 +1,5 @@
 .header {
-	height: 95vh;
+	height: 85vh;
 	background-image: linear-gradient(
 			to right bottom,
 			rgba($color-primary-light, 0.8),
@@ -13,9 +13,19 @@
 	-webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
 	clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
 
-	// Resolution query - for high resolution screens in big/normal screens, OR huge screens
+	// clip-path doens't work in older firefox versions
+	// polygon doesn't need to have the right values because the conditions are just being tested for the property
+	@supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+		-webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+		clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+		height: 95vh;
+	}
+
+	// Resolution query - for high resolution screens in big/normal screens, second line is created for safari since it does not
+	// recognine the min-resolution property, OR huge screens
 	// 600px/16 = 37.5em & 125px/16 = 125em
 	@media (min-resolution: 192dpi) and (min-width: 37.5em),
+		(-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
 		(min-width: 125em) {
 		background-image: linear-gradient(
 				to right bottom,
